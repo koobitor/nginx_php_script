@@ -29,19 +29,19 @@ echo "gpgcheck=0" >> $NGINX_REPO
 echo "enabled=1" >> $NGINX_REPO
 
 # Add Nginx Repository
-echo -e "\n---- Add Nginx Repository ----"
+echo "\n---- Add Nginx Repository ----"
 sudo yum -y install epel-release
 
 # Install Nginx
-echo -e "\n---- Install Nginx ----"
+echo "\n---- Install Nginx ----"
 sudo yum -y install nginx
 
 # Start Nginx
-echo -e "\n---- Start Nginx ----"
+echo "\n---- Start Nginx ----"
 sudo systemctl start nginx
 
 # Enable Nginx On Startup
-echo -e "\n---- Enable Nginx On Startup ----"
+echo "\n---- Enable Nginx On Startup ----"
 sudo systemctl enable nginx
 
 # Set Httpd Connect Network
@@ -50,21 +50,21 @@ setsebool -P httpd_can_network_connect=1
 #--------------------------------------------------
 # Install PHP 
 #--------------------------------------------------
-echo -e "\n---- Include the Webtatic EL yum repository data ----"
+echo "\n---- Include the Webtatic EL yum repository data ----"
 rpm -Uvh https://mirror.webtatic.com/yum/el7/epel-release.rpm
 rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 
-echo -e "\n---- Install PHP & Dependencies Packages ----"
+echo "\n---- Install PHP & Dependencies Packages ----"
 sudo yum install -y php56w php56w-opcache php56w-xml php56w-mcrypt php56w-gd php56w-devel php56w-mysql php56w-intl php56w-mbstring php56w-fpm
 
 # php version 
 php -v
 
 # php.ini
-echo -e "\n---- Configure the PHP Processor ----"
+echo "\n---- Configure the PHP Processor ----"
 sudo sed -i s/";cgi.fix_pathinfo=1"/"cgi.fix_pathinfo=0"/g $PHP_CONF
 
-echo -e "\n---- Configure the php-fpm ----"
+echo "\n---- Configure the php-fpm ----"
 sed -i s/"127.0.0.1:9000"/"\/var\/run\/php-fpm\/php-fpm.sock"/g $FPM_CONF
 sed -i s/";listen.owner = nobody"/"listen.owner = nginx"/g $FPM_CONF
 sed -i s/";listen.group = nobody"/"listen.group = nginx"/g $FPM_CONF
@@ -73,19 +73,19 @@ sed -i s/"user = apache"/"user = nginx"/g $FPM_CONF
 sed -i s/"group = apache"/"group = nginx"/g $FPM_CONF
 
 # Start php-fpm
-echo -e "\n---- Start php-fpm ----"
+echo "\n---- Start php-fpm ----"
 sudo systemctl start php-fpm
 
 # Enable php-fpm On Startup
-echo -e "\n---- Enable php-fpm On Startup ----"
+echo "\n---- Enable php-fpm On Startup ----"
 sudo systemctl enable php-fpm
 
-echo -e "\n---- Configure Nginx ----"
+echo "\n---- Configure Nginx ----"
 curl $NGINX_CONF_REPO > $NGINX_CONF
 
-echo -e "\n---- Restart Nginx ----"
+echo "\n---- Restart Nginx ----"
 sudo systemctl restart nginx
 
-echo -e "\n---- Touch phpinfo ----"
+echo "\n---- Touch phpinfo ----"
 echo "<?php phpinfo(); ?>" > $PHP_INFO
 chown nginx:nginx $PHP_INFO
