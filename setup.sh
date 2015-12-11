@@ -6,6 +6,11 @@ VERSION="7"
 
 # Nginx
 NGINX_REPO="/etc/yum.repos.d/nginx.repo"
+NGINX_CONF="/etc/nginx/conf.d/default.conf"
+FPM_CONF="/etc/php-fpm.d/www.conf"
+PHP_CONF="/etc/php.ini"
+PHP_INFO="/usr/share/nginx/html/info.php"
+NGINX_CONF_REPO="https://raw.githubusercontent.com/koobitor/nginx_conf/master/default.conf"
 
 #--------------------------------------------------
 # Update Server
@@ -57,15 +62,15 @@ php -v
 
 # php.ini
 echo -e "\n---- Configure the PHP Processor ----"
-sudo sed -i s/\;cgi.fix_pathinfo=1/"cgi.fix_pathinfo=0"/g /etc/php.ini
+sudo sed -i s/";cgi.fix_pathinfo=1"/"cgi.fix_pathinfo=0"/g $PHP_CONF
 
 echo -e "\n---- Configure the php-fpm ----"
-sed -i s/"127.0.0.1:9000"/"\/var\/run\/php-fpm\/php-fpm.sock"/g /etc/php-fpm.d/www.conf
-sed -i s/";listen.owner = nobody"/"listen.owner = nginx"/g /etc/php-fpm.d/www.conf
-sed -i s/";listen.group = nobody"/"listen.group = nginx"/g /etc/php-fpm.d/www.conf
-sed -i s/";listen.mode = 0666"/"listen.mode = 0660"/g /etc/php-fpm.d/www.conf
-sed -i s/"user = apache"/"user = nginx"/g /etc/php-fpm.d/www.conf
-sed -i s/"group = apache"/"group = nginx"/g /etc/php-fpm.d/www.conf
+sed -i s/"127.0.0.1:9000"/"\/var\/run\/php-fpm\/php-fpm.sock"/g $FPM_CONF
+sed -i s/";listen.owner = nobody"/"listen.owner = nginx"/g $FPM_CONF
+sed -i s/";listen.group = nobody"/"listen.group = nginx"/g $FPM_CONF
+sed -i s/";listen.mode = 0666"/"listen.mode = 0660"/g $FPM_CONF
+sed -i s/"user = apache"/"user = nginx"/g $FPM_CONF
+sed -i s/"group = apache"/"group = nginx"/g $FPM_CONF
 
 # Start php-fpm
 echo -e "\n---- Start php-fpm ----"
@@ -76,8 +81,11 @@ echo -e "\n---- Enable php-fpm On Startup ----"
 sudo systemctl enable php-fpm
 
 echo -e "\n---- Configure Nginx ----"
-curl https://raw.githubusercontent.com/koobitor/nginx_conf/master/default.conf > /etc/nginx/conf.d/default.conf
+curl $NGINX_CONF_REPO > $NGINX_CONF
 
 echo -e "\n---- Restart Nginx ----"
 sudo systemctl restart nginx
 
+echo -e "\n---- Touch phpinfo ----"
+echo "<?php phpinfo(); ?>" > $PHP_INFO
+chown nginx:nginx $PHP_INFO
