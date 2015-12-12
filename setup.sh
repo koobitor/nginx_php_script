@@ -19,6 +19,13 @@ sudo yum -y update
 sudo yum -y upgrade
 
 #--------------------------------------------------
+# Install Tools 
+#--------------------------------------------------
+sudo yum -y install wget unzip git
+sudo yum -y groupinstall "Development Tools"
+sudo yum -y install gettext-devel openssl-devel perl-CPAN perl-devel zlib-devel
+
+#--------------------------------------------------
 # Install Nginx 
 #--------------------------------------------------
 touch /etc/yum.repos.d/nginx.repo
@@ -55,7 +62,7 @@ rpm -Uvh https://mirror.webtatic.com/yum/el7/epel-release.rpm
 rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 
 echo "\n---- Install PHP & Dependencies Packages ----"
-sudo yum install -y php56w php56w-opcache php56w-xml php56w-mcrypt php56w-gd php56w-devel php56w-mysql php56w-intl php56w-mbstring php56w-fpm
+sudo yum install -y php56w php56w-opcache php56w-xml php56w-mcrypt php56w-gd php56w-devel php56w-mysql php56w-intl php56w-mbstring php56w-fpm php56w-soap
 
 # php version 
 php -v
@@ -84,6 +91,9 @@ sudo systemctl enable php-fpm
 echo "\n---- Configure Nginx ----"
 curl $NGINX_CONF_REPO > $NGINX_CONF
 
+echo "\n---- Restart php-fpm ----"
+sudo systemctl restart php-fpm
+
 echo "\n---- Restart Nginx ----"
 sudo systemctl restart nginx
 
@@ -102,3 +112,4 @@ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/loca
 # Add Environment Path
 echo "\n---- Environment Path ----"
 export PATH=$PATH:/usr/local/bin
+
