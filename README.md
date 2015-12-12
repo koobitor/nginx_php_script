@@ -1,5 +1,6 @@
 ### How to use shell script
 
-`chmod 400 setup.sh`
-
-`./setup.sh`
+`sudo su`
+`curl https://raw.githubusercontent.com/koobitor/nginx_php_script/master/easy.sh > easy.sh`
+`chmod +x easy.sh`
+`./easy.sh`
