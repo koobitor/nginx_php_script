@@ -63,6 +63,7 @@ php -v
 # php.ini
 echo "\n---- Configure the PHP Processor ----"
 sudo sed -i s/";cgi.fix_pathinfo=1"/"cgi.fix_pathinfo=0"/g $PHP_CONF
+sudo sed -i s/"memory_limit = 128M"/"memory_limit = 512M"/g $PHP_CONF
 
 echo "\n---- Configure the php-fpm ----"
 sed -i s/"127.0.0.1:9000"/"\/var\/run\/php-fpm\/php-fpm.sock"/g $FPM_CONF
@@ -89,3 +90,15 @@ sudo systemctl restart nginx
 echo "\n---- Touch phpinfo ----"
 echo "<?php phpinfo(); ?>" > $PHP_INFO
 chown nginx:nginx $PHP_INFO
+
+#--------------------------------------------------
+# Install Composer 
+#--------------------------------------------------
+
+# Install Composer
+echo "\n---- Install Composer ----"
+curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+
+# Add Environment Path
+echo "\n---- Environment Path ----"
+export PATH=$PATH:/usr/local/bin
