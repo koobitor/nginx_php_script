@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # https://github.com/colinmollenhour/modman
@@ -47,6 +48,10 @@ echo "\n---- Install Apptrian_Minify_HTML_CSS_JS ----"
 ./mage install http://connect20.magentocommerce.com/community ET_CurrencyManager
 ./mage install http://connect20.magentocommerce.com/community Bestseller_products
 ./mage install http://connect20.magentocommerce.com/community Fooman_GoogleAnalyticsPlus
+./mage install http://connect20.magentocommerce.com/community Dnd_Patchindexurl
+./mage install http://connect20.magentocommerce.com/community Nikolakisae_PaymentLogo
+./mage install http://connect20.magentocommerce.com/community Varnish_Cache
+./mage install http://connect20.magentocommerce.com/community Netresearch_CatalogCache
 
 # clear-cache
 ./mage clear-cache
@@ -137,6 +142,8 @@ cp -Rfn skin/* /usr/share/nginx/html/skin/
 cp -Rfn autocomplete.php /usr/share/nginx/html/
 cd ..
 rm -Rf bubble-elasticsearch-v4.0.0
+# /app/code/community/Bubble/Elasticsearch/Helper/Indexer/Product.php
+# ini_set('memory_limit', '-1');
 
 # bubble-layer-v2.3.0
 mkdir bubble-layer-v2.3.0
@@ -195,14 +202,14 @@ mv mirasvit_advanced_seo_suite_1_3_1_1115_topvalue_com.zip mirasvit_advanced_seo
 cd mirasvit_advanced_seo_suite_1_3_1_1115_topvalue_com
 unzip mirasvit_advanced_seo_suite_1_3_1_1115_topvalue_com.zip
 cd step1
-cp -Rfn app/* /usr/share/nginx/html/app/
-cp -Rfn js/* /usr/share/nginx/html/js/
-cp -Rfn media/* /usr/share/nginx/html/media/
-cp -Rfn shell/* /usr/share/nginx/html/shell/
-cp -Rfn skin/* /usr/share/nginx/html/skin/
+yes | cp -Rf app/* /usr/share/nginx/html/app/
+yes | cp -Rf js/* /usr/share/nginx/html/js/
+yes | cp -Rf media/* /usr/share/nginx/html/media/
+yes | cp -Rf shell/* /usr/share/nginx/html/shell/
+yes | cp -Rf skin/* /usr/share/nginx/html/skin/
 cd ../
 cd step2
-cp -Rfn app/* /usr/share/nginx/html/app/
+yes | cp -Rf app/* /usr/share/nginx/html/app/
 cd ../../
 rm -Rf mirasvit_advanced_seo_suite_1_3_1_1115_topvalue_com
 
@@ -233,6 +240,79 @@ cp -Rfn app/* /usr/share/nginx/html/app/
 cp -Rfn lib/* /usr/share/nginx/html/lib/
 cd ../../
 rm -Rf MOBExtract-For-Odoo-v9.0-Magento-1.9.-
+
+git clone https://github.com/AOEpeople/Aoe_Profiler.git
+cd Aoe_Profiler
+cp -Rfn app/* /usr/share/nginx/html/app/
+cp -Rfn skin/* /usr/share/nginx/html/skin/
+cp -Rfn var/* /usr/share/nginx/html/var/
+cd ..
+rm -Rf Aoe_Profiler
+
+mkdir counterservice
+mv counterservice.zip counterservice
+cd counterservice
+unzip counterservice.zip
+cd counterservice
+cp -Rfn app/* /usr/share/nginx/html/app/
+cp -Rfn media/* /usr/share/nginx/html/media/
+cd ../../
+rm -Rf counterservice
+
+mkdir spyrocash
+mv spyrocash.zip spyrocash
+cd spyrocash
+unzip spyrocash.zip
+cd spyrocash
+cp -Rfn app/* /usr/share/nginx/html/app/
+cd ../../
+rm -Rf spyrocash
+
+mkdir aw_ajaxcatalog-2.0.1.community_edition
+mv aw_ajaxcatalog-2.0.1.community_edition.zip aw_ajaxcatalog-2.0.1.community_edition
+cd aw_ajaxcatalog-2.0.1.community_edition
+unzip aw_ajaxcatalog-2.0.1.community_edition.zip
+cd step1
+cp -Rfn app/* /usr/share/nginx/html/app/
+cp -Rfn js/* /usr/share/nginx/html/js/
+cp -Rfn skin/* /usr/share/nginx/html/skin/
+cd ..
+cd step2
+cp -Rfn app/* /usr/share/nginx/html/app/
+cd ../../
+rm -Rf aw_ajaxcatalog-2.0.1.community_edition
+
+mkdir MW_Mcore
+mv MW_Mcore.zip MW_Mcore
+cd MW_Mcore
+unzip MW_Mcore.zip
+cd MW_Mcore_v3.0.5
+cp -Rfn app/* /usr/share/nginx/html/app/
+cp -Rfn skin/* /usr/share/nginx/html/skin/
+cd ../../
+rm -Rf MW_Mcore
+
+mkdir MW_Dailydeal_v2.2.5
+mv MW_Dailydeal_v2.2.5.zip MW_Dailydeal_v2.2.5
+cd MW_Dailydeal_v2.2.5
+unzip MW_Dailydeal_v2.2.5.zip
+cd MW_Dailydeal_v2.2.5
+cp -Rfn app/* /usr/share/nginx/html/app/
+cp -Rfn media/* /usr/share/nginx/html/media/
+cp -Rfn skin/* /usr/share/nginx/html/skin/
+cd ../../
+rm -Rf MW_Dailydeal_v2.2.5
+
+mkdir MW_FollowUpEmail_v2.1.1
+mv MW_FollowUpEmail_v2.1.1.zip MW_FollowUpEmail_v2.1.1
+cd MW_FollowUpEmail_v2.1.1
+unzip MW_FollowUpEmail_v2.1.1.zip
+cd MW_FollowUpEmail_v2.1.1
+cp -Rfn app/* /usr/share/nginx/html/app/
+cp -Rfn js/* /usr/share/nginx/html/js/
+cp -Rfn skin/* /usr/share/nginx/html/skin/
+cd ../../
+rm -Rf MW_FollowUpEmail_v2.1.1
 
 # end
 cd ..
