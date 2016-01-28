@@ -5,9 +5,9 @@ cd /usr/share/nginx/html/
 #--------------------------------------------------
 # Install Magento 
 #--------------------------------------------------
-wget https://s3-ap-southeast-1.amazonaws.com/topvalley/magento-1.9.2.2.tar.gz
-tar -xzvf magento-1.9.2.2.tar.gz
-rm -Rf magento-1.9.2.2.tar.gz
+wget https://s3-ap-southeast-1.amazonaws.com/topvalley/magento-1.9.2.3.tar.gz
+tar -xzvf magento-1.9.2.3.tar.gz
+rm -Rf magento-1.9.2.3.tar.gz
 
 #--------------------------------------------------
 # Install Magento Simple Data 
