@@ -83,7 +83,6 @@ yum -y install php70w-fpm
 # /var/run/php-fpm/php-fpm.sock
 echo "\n---- Configure Nginx ----"
 curl $NGINX_CONF_REPO > $NGINX_CONF
-curl https://raw.githubusercontent.com/koobitor/nginx_conf/master/default.conf > /etc/nginx/default.d/default.conf
 
 echo "\n---- Restart php-fpm ----"
 systemctl restart php-fpm
