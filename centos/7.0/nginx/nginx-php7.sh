@@ -90,17 +90,3 @@ systemctl restart php-fpm
 
 echo "\n---- Restart Nginx ----"
 systemctl restart nginx
-
-#--------------------------------------------------
-# Install MariaDB 
-#--------------------------------------------------
-echo "\n---- Install MariaDB ----"
-yum -y install mariadb-server mariadb
-
-# Start MariaDB
-echo "\n---- Start MariaDB ----"
-systemctl start mysql
-
-# Enable MariaDB On Startup
-echo "\n---- Enable MariaDB On Startup ----"
-systemctl enable mariadb
